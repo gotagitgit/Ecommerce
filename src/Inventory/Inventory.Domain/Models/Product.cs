@@ -14,4 +14,9 @@ public sealed class Product
     public string Name { get; } 
 
     public int Quantity { get; }
+
+    public Product WithQuantity(int quantity)
+    {
+        return new Product(SKU, Name, quantity);
+    }
 }

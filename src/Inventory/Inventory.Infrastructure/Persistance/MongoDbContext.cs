@@ -16,13 +16,12 @@ internal class MongoDbContext : IMongoDbContext
 
         var database = mongoClient.GetDatabase(options.Value.DatabaseName);
 
-        BsonClassMap.RegisterClassMap<ProductDto>(
-           map =>
-           {
-               map.AutoMap();
-               map.MapProperty(x => x.Id).SetSerializer(new GuidSerializer(BsonType.String));
-           });
-
+        _ = BsonClassMap.TryRegisterClassMap<ProductDto>(
+               map =>
+               {
+                   map.AutoMap();
+                   map.MapProperty(x => x.Id).SetSerializer(new GuidSerializer(BsonType.String));
+               }); 
 
         Products = database.GetCollection<ProductDto>(options.Value.CollectionName);
        
