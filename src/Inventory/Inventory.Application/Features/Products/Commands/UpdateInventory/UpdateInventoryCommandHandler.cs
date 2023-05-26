@@ -19,7 +19,7 @@ internal sealed class UpdateInventoryCommandHandler : IRequestHandler<UpdateInve
         if (product == null)
             throw new ArgumentException($"Product {request.Sku} does not exist");
 
-        var updatedProduct = product.WithQuantity(request.Quantity);
+        var updatedProduct = product with { Quantity = request.Quantity };
 
         await _productRepository.UpdateAsync(updatedProduct);
 
