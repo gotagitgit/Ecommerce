@@ -4,38 +4,39 @@ using Inventory.Infrastructure.Persistance;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit.Abstractions;
 
-namespace Inventory.Api.Tests.Fixtures
+namespace Inventory.Api.Tests.Fixtures;
+
+public sealed class InventoryFixture : IDisposable
 {
-    public sealed class InventoryFixture : IDisposable
+    private readonly InventoryServerFactory _inventoryFactory;
+
+    public InventoryFixture(ITestOutputHelper testOutputHelper)
     {
-        private readonly InventoryServerFactory _inventoryFactory;
-        private readonly HttpClient _inventoryHttpClient;
+        _inventoryFactory = new InventoryServerFactory(testOutputHelper);
 
-        public InventoryFixture(ITestOutputHelper testOutputHelper)
-        {
-            _inventoryFactory = new InventoryServerFactory(testOutputHelper);
+        var _inventoryHttpClient = _inventoryFactory.CreateClient();
 
-            var _inventoryHttpClient = _inventoryFactory.CreateClient();
+        var baseUri = new Uri("http://localhost:5002/api/Product");
 
-            var baseUri = new Uri("http://localhost:5002/api/Product");
+        var restHttpClientService = new RestHttpClientService(_inventoryHttpClient, baseUri);
 
-            var restHttpClientService = new RestHttpClientService(_inventoryHttpClient, baseUri);
+        InventoryClient = new InventoryClientService(restHttpClientService);
 
-            InventoryClient = new InventoryClientService(restHttpClientService);
+        ServiceProvider = _inventoryFactory.Server.Services;
+    }
 
-            ServiceProvider = _inventoryFactory.Server.Services;
-        }
+    public IInventoryClientService InventoryClient { get; }
 
-        public IInventoryClientService InventoryClient { get; }
+    public IServiceProvider ServiceProvider { get; }
 
-        public IServiceProvider ServiceProvider { get; }
+    public void Dispose()
+    {
+        using var scope = ServiceProvider.CreateScope();
 
-        public void Dispose()
-        {
-            // Find a way to properly Dispose Mongo DB
-            //var xxx = ServiceProvider.GetRequiredService<IMongoDbContext>();//.Dispose();
+        var db = (IDisposable)scope.ServiceProvider.GetRequiredService<IMongoDbContext>();
 
-            _inventoryFactory.Dispose();
-        }
+        db.Dispose();
+
+        _inventoryFactory.Dispose();
     }
 }

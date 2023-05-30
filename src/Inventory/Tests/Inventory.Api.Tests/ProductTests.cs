@@ -3,7 +3,6 @@ using Inventory.Api.Tests.Fixtures;
 using Inventory.Api.Tests.Services;
 using Inventory.Application.Features.Products.Commands.AddProduct;
 using Xunit.Abstractions;
-using Xunit.Sdk;
 
 namespace Inventory.Api.Tests;
 

@@ -1,11 +1,13 @@
 ﻿using Divergic.Logging.Xunit;
 using Inventory.Api.Tests.Fixtures;
 using Inventory.Infrastructure.Persistance;
+using Inventory.Infrastructure.Settings;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Xunit.Abstractions;
 
 namespace Inventory.Api.Tests.Factories;
@@ -28,20 +30,11 @@ public sealed class InventoryServerFactory : WebApplicationFactory<Program>
 
         builder.ConfigureTestServices(services =>
         {
-            services.AddScoped<ITestMongoDbContext, DbContextFixture>();
+            services.AddScoped<IMongoDbContext, DbContextFixture>();
 
-            services.AddScoped<IMongoDbContext>(x => x.GetRequiredService<ITestMongoDbContext>());
+            services.Configure<DatabaseSettings>(x => x.DatabaseName = $"inventory_test_db_{Guid.NewGuid()}");
         });
 
         base.ConfigureWebHost(builder);
     }
-
-    //protected override void Dispose(bool disposing)
-    //{
-    //    var db = base.Services.GetRequiredService<IMongoDbContext>();
-        
-    //    //db.Dispose();
-
-    //    base.Dispose(disposing);
-    //}
 }

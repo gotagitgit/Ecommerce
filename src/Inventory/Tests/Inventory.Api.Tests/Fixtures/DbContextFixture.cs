@@ -1,29 +1,26 @@
 ﻿using Inventory.Infrastructure.Dtos;
 using Inventory.Infrastructure.Persistance;
 using Inventory.Infrastructure.Settings;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace Inventory.Api.Tests.Fixtures;
 
-internal sealed class DbContextFixture : ITestMongoDbContext
+internal sealed class DbContextFixture : IMongoDbContext, IDisposable
 {
-    private readonly string _databaseConnectionString;
-
-    private readonly string _databaseName;
-
-    private readonly MongoClient _mongoClient;
+    private readonly IOptions<DatabaseSettings> _databaseSettings;
 
     public DbContextFixture(IOptions<DatabaseSettings> databaseSettings)
     {
-        var _databaseConnectionString = databaseSettings.Value.ConnectionString;
+        _databaseSettings = databaseSettings;
 
-        var _databaseName = $"inventory_test_db_{Guid.NewGuid()}";
+        var databaseConnectionString = databaseSettings.Value.ConnectionString;
 
-        var _mongoClient = new MongoClient(_databaseConnectionString);
+        var databaseName = databaseSettings.Value.DatabaseName;
 
-        var database = _mongoClient.GetDatabase(_databaseName);
+        var mongoClient = new MongoClient(databaseConnectionString);
+
+        var database = mongoClient.GetDatabase(databaseName);
 
         var collectionName = databaseSettings.Value.CollectionName;
 
@@ -34,8 +31,10 @@ internal sealed class DbContextFixture : ITestMongoDbContext
 
     public void Dispose()
     {
-        var client = new MongoClient(_databaseConnectionString);
+        var databaseConnectionString = _databaseSettings.Value.ConnectionString;
 
-        client.DropDatabase(_databaseName);
+        var client = new MongoClient(databaseConnectionString);
+
+        client.DropDatabase(_databaseSettings.Value.DatabaseName);
     }
 }
