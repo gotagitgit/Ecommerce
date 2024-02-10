@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClientApp", "ClientApp", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{0C7EFE8D-9BB0-4FD6-89C9-303E5E997E5F}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "webapp.client", "ClientApp\Web\webapp.client\webapp.client.esproj", "{4463AE1C-DE5E-4A16-B530-2842F763C165}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,12 @@ Global
 		{B4971BC3-C29A-4564-A57D-B279AF1C1C1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4971BC3-C29A-4564-A57D-B279AF1C1C1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4971BC3-C29A-4564-A57D-B279AF1C1C1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4463AE1C-DE5E-4A16-B530-2842F763C165}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4463AE1C-DE5E-4A16-B530-2842F763C165}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4463AE1C-DE5E-4A16-B530-2842F763C165}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{4463AE1C-DE5E-4A16-B530-2842F763C165}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4463AE1C-DE5E-4A16-B530-2842F763C165}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4463AE1C-DE5E-4A16-B530-2842F763C165}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +67,7 @@ Global
 		{D6D02E0A-1F27-4693-8507-171FA0CF01C0} = {75D7EEBA-F8F1-45C9-89D6-45A23FC5B673}
 		{B4971BC3-C29A-4564-A57D-B279AF1C1C1F} = {D6D02E0A-1F27-4693-8507-171FA0CF01C0}
 		{0C7EFE8D-9BB0-4FD6-89C9-303E5E997E5F} = {E26EAA52-46D4-4750-A085-3AEDA6BC31B2}
+		{4463AE1C-DE5E-4A16-B530-2842F763C165} = {0C7EFE8D-9BB0-4FD6-89C9-303E5E997E5F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BC99A546-1D26-4E1E-B2ED-E6C21305EC6A}
