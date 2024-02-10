@@ -14,6 +14,16 @@ namespace Inventory.Api
             // Add services to the container.
             var services = builder.Services;
 
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    policy =>
+                    {
+                        policy.AllowAnyOrigin(); // Temporary while debugging
+                    });
+            });
+
+
             services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
@@ -23,7 +33,7 @@ namespace Inventory.Api
                     .RegisterInfrastureDependencies();
 
             services.Configure<DatabaseSettings>(builder.Configuration.GetSection(nameof(DatabaseSettings)));
-
+                       
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -32,6 +42,8 @@ namespace Inventory.Api
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors();
 
             app.UseAuthorization();
 
