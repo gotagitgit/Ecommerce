@@ -2,19 +2,17 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import { Inventory } from './Inventory';
-import { App } from './App';
-
+import { Inventory } from './inventory/Inventory';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (<App />)
-  },
-  {
-    path: "inventory",
     element: (<Inventory />)
-  }
+  },
+  // {
+  //   path: "inventory",
+  //   element: (<Inventory />)
+  // }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
