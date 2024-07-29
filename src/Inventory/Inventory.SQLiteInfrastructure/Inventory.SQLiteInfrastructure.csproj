@@ -16,9 +16,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Infrastructure.Common\Infrastructure.Common.csproj" />
-    <ProjectReference Include="..\Inventory\Inventory.Application\Inventory.Application.csproj" />
-    <ProjectReference Include="..\Inventory\Inventory.Domain\Inventory.Domain.csproj" />
+    <Folder Include="SQLiteDatabase\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure.Common\Infrastructure.Common.csproj" />
+    <ProjectReference Include="..\Inventory.Application\Inventory.Application.csproj" />
+    <ProjectReference Include="..\Inventory.Domain\Inventory.Domain.csproj" />
   </ItemGroup>
 
 </Project>
