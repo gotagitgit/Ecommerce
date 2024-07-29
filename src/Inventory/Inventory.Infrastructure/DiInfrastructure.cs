@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Inventory.Infrastructure;
 
-public static class DiInfrastructure
+public static class SQLiteDependencyInjection
 {
     public static IServiceCollection RegisterInfrastureDependencies(this IServiceCollection services)
     {

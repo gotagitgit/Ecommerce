@@ -2,6 +2,7 @@
 using Inventory.Application;
 using Inventory.Infrastructure;
 using Inventory.Infrastructure.Settings;
+using Inventory.SQLiteInfrastructure;
 
 namespace Inventory.Api
 {
@@ -30,7 +31,8 @@ namespace Inventory.Api
             services.AddSwaggerGen();
 
             services.RegisterApplicationDependencies()
-                    .RegisterInfrastureDependencies();
+                    //.RegisterInfrastureDependencies()
+                    .RegisterSQLiteInfrastureDependencies(builder.Configuration);
 
             services.Configure<DatabaseSettings>(builder.Configuration.GetSection(nameof(DatabaseSettings)));
                        
