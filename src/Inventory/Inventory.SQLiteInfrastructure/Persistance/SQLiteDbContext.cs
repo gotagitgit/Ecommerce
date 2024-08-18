@@ -9,5 +9,8 @@ public class SQLiteDbContext(DbContextOptions<SQLiteDbContext> options) : DbCont
     public DbSet<ProductDto> Products { get; set; }
 
     public SQLiteDbContext DbContext => this;
+
+    //    protected override void OnConfiguring(DbContextOptionsBuilder options)
+    //    => options.UseSqlite("DataSource=Inventories.db");  
 }
 

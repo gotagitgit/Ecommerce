@@ -27,6 +27,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Common", "In
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory.SQLiteInfrastructure", "Inventory\Inventory.SQLiteInfrastructure\Inventory.SQLiteInfrastructure.csproj", "{63134D65-9539-4696-B4CD-BBB3934687AB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{0A227C9C-40AA-438C-9BC6-40063155E93B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCoreMigrate", "Tools\EFCoreMigrate\EFCoreMigrate.csproj", "{197662C9-3DDE-4EDB-93F2-160997FE5BAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +71,10 @@ Global
 		{63134D65-9539-4696-B4CD-BBB3934687AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63134D65-9539-4696-B4CD-BBB3934687AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63134D65-9539-4696-B4CD-BBB3934687AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{197662C9-3DDE-4EDB-93F2-160997FE5BAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{197662C9-3DDE-4EDB-93F2-160997FE5BAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{197662C9-3DDE-4EDB-93F2-160997FE5BAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{197662C9-3DDE-4EDB-93F2-160997FE5BAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +90,7 @@ Global
 		{4463AE1C-DE5E-4A16-B530-2842F763C165} = {0C7EFE8D-9BB0-4FD6-89C9-303E5E997E5F}
 		{3731F872-E25F-4ED6-9F9F-7197690A8B80} = {75D7EEBA-F8F1-45C9-89D6-45A23FC5B673}
 		{63134D65-9539-4696-B4CD-BBB3934687AB} = {75D7EEBA-F8F1-45C9-89D6-45A23FC5B673}
+		{197662C9-3DDE-4EDB-93F2-160997FE5BAE} = {0A227C9C-40AA-438C-9BC6-40063155E93B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BC99A546-1D26-4E1E-B2ED-E6C21305EC6A}

@@ -32,7 +32,7 @@ namespace Inventory.Api
 
             services.RegisterApplicationDependencies()
                     //.RegisterInfrastureDependencies()
-                    .RegisterSQLiteInfrastureDependencies(builder.Configuration);
+                    .RegisterSQLiteInfrastureDependencies();
 
             services.Configure<DatabaseSettings>(builder.Configuration.GetSection(nameof(DatabaseSettings)));
                        
