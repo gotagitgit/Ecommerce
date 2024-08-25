@@ -30,9 +30,11 @@ namespace Inventory.Api
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
+            var configuration = builder.Configuration;
+
             services.RegisterApplicationDependencies()
                     //.RegisterInfrastureDependencies()
-                    .RegisterSQLiteInfrastureDependencies();
+                    .RegisterSQLiteInfrastureDependencies(configuration);
 
             services.Configure<DatabaseSettings>(builder.Configuration.GetSection(nameof(DatabaseSettings)));
                        
