@@ -9,7 +9,7 @@ using System.Collections.Immutable;
 
 namespace Inventory.SQLiteInfrastructure.Products.Repositories;
 
-public class ProductRepository(IUnitOfWork<SQLiteDbContext> unitOfWork) : IProductRepository
+internal class ProductRepository(IUnitOfWork<SQLiteDbContext> unitOfWork) : IProductRepository
 {
     private readonly IUnitOfWork<SQLiteDbContext> _unitOfWork = unitOfWork;
 

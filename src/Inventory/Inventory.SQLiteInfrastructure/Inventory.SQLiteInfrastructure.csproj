@@ -24,5 +24,10 @@
     <ProjectReference Include="..\..\Infrastructure.Common\Infrastructure.Common.csproj" />
     <ProjectReference Include="..\Inventory.Application\Inventory.Application.csproj" />
     <ProjectReference Include="..\Inventory.Domain\Inventory.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+    <Folder Include="Orders\Dtos\" />
   </ItemGroup>	
 </Project>

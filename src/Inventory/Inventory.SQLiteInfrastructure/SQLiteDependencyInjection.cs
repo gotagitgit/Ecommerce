@@ -3,6 +3,7 @@ using Inventory.Application.Repositories;
 using Inventory.SQLiteInfrastructure.Persistance;
 using Inventory.SQLiteInfrastructure.Persistance.Seeders;
 using Inventory.SQLiteInfrastructure.Products.Repositories;
+using Inventory.SQLiteInfrastructure.Quotes.Repositories;
 using Inventory.SQLiteInfrastructure.UOW;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +17,7 @@ public static class SQLiteDependencyInjection
     {
         services.AddScoped<IUnitOfWork<SQLiteDbContext>, UnitOfWork>();
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IQuoteRepository, QuoteRepository>();
         services.AddScoped<IDatabaseContext<SQLiteDbContext>, SQLiteDbContext>();
 
         services.AddDbContext<SQLiteDbContext>(options =>
