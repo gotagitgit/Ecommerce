@@ -1,4 +1,5 @@
 
+using Inventory.Api.Filters;
 using Inventory.Application;
 using Inventory.Infrastructure;
 using Inventory.Infrastructure.Settings;
@@ -24,6 +25,7 @@ namespace Inventory.Api
                     });
             });
 
+            services.AddMvc(x => x.Filters.Add(typeof(DatabaseTransactionFilter)));
 
             services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

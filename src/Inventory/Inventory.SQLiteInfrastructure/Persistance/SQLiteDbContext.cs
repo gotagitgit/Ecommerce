@@ -2,10 +2,11 @@
 using Inventory.SQLiteInfrastructure.Dtos;
 using Inventory.SQLiteInfrastructure.Products.Dtos;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace Inventory.SQLiteInfrastructure.Persistance;
 
-public class SQLiteDbContext(DbContextOptions<SQLiteDbContext> options) : DbContext(options), IDatabaseContext<SQLiteDbContext>
+public class SQLiteDbContext(DbContextOptions<SQLiteDbContext> options) : DbContext(options), IDatabaseContext
 {
     public DbSet<ProductDto> Products { get; set; }
 
@@ -13,9 +14,36 @@ public class SQLiteDbContext(DbContextOptions<SQLiteDbContext> options) : DbCont
 
     public DbSet<QuoteDto> Quotes { get; set; }
 
-    public SQLiteDbContext DbContext => this;
+    public async Task BeginTransactionAsync()
+    {
+        var connection = Database.GetDbConnection();
 
-    //    protected override void OnConfiguring(DbContextOptionsBuilder options)
-    //    => options.UseSqlite("DataSource=Inventories.db");  
+        if (connection.State != ConnectionState.Open)
+            await connection.OpenAsync();
+
+        var transaction = await connection.BeginTransactionAsync();
+
+        await Database.UseTransactionAsync(transaction);
+    }
+
+    public async Task CommitTransactionAsync()
+    {
+        var transaction = Database.CurrentTransaction;
+
+        if (transaction == null)
+            return;
+
+        await transaction.CommitAsync();
+    }
+
+    public async Task RollbackTransactionAsync()
+    {
+        var transaction = Database.CurrentTransaction;
+
+        if (transaction == null)
+            return;
+
+        await transaction.RollbackAsync();
+    }
 }
 

@@ -1,6 +1,11 @@
-﻿namespace Infrastructure.Common;
+﻿
+namespace Infrastructure.Common;
 
-public interface IDatabaseContext<T>
+public interface IDatabaseContext
 {
-    public T DbContext { get; }
+    Task BeginTransactionAsync();
+
+    Task CommitTransactionAsync();
+
+    Task RollbackTransactionAsync();
 }

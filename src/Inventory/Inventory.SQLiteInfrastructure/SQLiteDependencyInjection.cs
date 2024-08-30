@@ -4,7 +4,6 @@ using Inventory.SQLiteInfrastructure.Persistance;
 using Inventory.SQLiteInfrastructure.Persistance.Seeders;
 using Inventory.SQLiteInfrastructure.Products.Repositories;
 using Inventory.SQLiteInfrastructure.Quotes.Repositories;
-using Inventory.SQLiteInfrastructure.UOW;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,11 +14,10 @@ public static class SQLiteDependencyInjection
 {
     public static IServiceCollection RegisterSQLiteInfrastureDependencies(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<IUnitOfWork<SQLiteDbContext>, UnitOfWork>();
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IQuoteRepository, QuoteRepository>();
-        services.AddScoped<IDatabaseContext<SQLiteDbContext>, SQLiteDbContext>();
 
+        services.AddScoped<IDatabaseContext>(x => x.GetRequiredService<SQLiteDbContext>());
         services.AddDbContext<SQLiteDbContext>(options =>
                     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
