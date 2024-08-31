@@ -9,25 +9,25 @@ namespace Inventory.SQLiteInfrastructure.Quotes.Repositories;
 
 internal sealed class QuoteRepository(SQLiteDbContext dbContext) : IQuoteRepository
 {
-    private readonly SQLiteDbContext DbContext = dbContext;
+    private readonly SQLiteDbContext _dbContext = dbContext;
 
     public async Task DeleteAsync(Guid id)
     {
         var dto = await GetQuoteByIdAsync(id);
 
         if (dto == null)
-            return;
+            return;        
 
-        DbContext.Quotes.Remove(dto);
+        _dbContext.Quotes.Remove(dto);
 
-        _ = await DbContext.SaveChangesAsync();
+        _ = await _dbContext.SaveChangesAsync();
     }
 
     public async Task<IReadOnlyList<Quote>> FindAsync()
     {       
-        var quotes = await DbContext.Quotes.ToListAsync();
+        var quotes = await _dbContext.Quotes.ToListAsync();
 
-        var ordersDto = await DbContext.Orders.ToListAsync();
+        var ordersDto = await _dbContext.Orders.ToListAsync();
 
         return quotes.Select(x =>
         {
@@ -44,7 +44,7 @@ internal sealed class QuoteRepository(SQLiteDbContext dbContext) : IQuoteReposit
         if (quoteDto == null)
             return Quote.Empty;
 
-        var ordersDto = DbContext.Orders.Where(x => x.QuoteId == quoteDto.Id).ToList();
+        var ordersDto = _dbContext.Orders.Where(x => x.QuoteId == quoteDto.Id).ToList();
 
         return QuoteFactory.ToModel(quoteDto, ordersDto);   
     }
@@ -55,11 +55,11 @@ internal sealed class QuoteRepository(SQLiteDbContext dbContext) : IQuoteReposit
 
         var ordersDto = quote.Orders.Select(QuoteFactory.ToDto).ToList();
 
-        _ = await DbContext.Quotes.AddAsync(quoteDto);
+        _ = await _dbContext.Quotes.AddAsync(quoteDto);
 
-        await DbContext.Orders.AddRangeAsync(ordersDto);
+        await _dbContext.Orders.AddRangeAsync(ordersDto);
 
-        _ = await DbContext.SaveChangesAsync();    
+        _ = await _dbContext.SaveChangesAsync();    
     }
 
     public async Task UpdateAsync(Quote quote)
@@ -68,13 +68,13 @@ internal sealed class QuoteRepository(SQLiteDbContext dbContext) : IQuoteReposit
 
         var ordersDto = quote.Orders.Select(QuoteFactory.ToDto).ToList();
 
-        _ = DbContext.Quotes.Update(quoteDto);
+        _ = _dbContext.Quotes.Update(quoteDto);
 
-        DbContext.Orders.UpdateRange(ordersDto);
+        _dbContext.Orders.UpdateRange(ordersDto);
 
-        _ = await DbContext.SaveChangesAsync();      
+        _ = await _dbContext.SaveChangesAsync();      
     }
 
     private async Task<QuoteDto?> GetQuoteByIdAsync(Guid id) =>
-        await DbContext.Quotes.SingleOrDefaultAsync(x => x.Id == id);    
+        await _dbContext.Quotes.SingleOrDefaultAsync(x => x.Id == id);    
 }

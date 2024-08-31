@@ -2,7 +2,6 @@
 using Inventory.SQLiteInfrastructure.Dtos;
 using Inventory.SQLiteInfrastructure.Products.Dtos;
 using Microsoft.EntityFrameworkCore;
-using System.Data;
 
 namespace Inventory.SQLiteInfrastructure.Persistance;
 
@@ -14,17 +13,7 @@ public class SQLiteDbContext(DbContextOptions<SQLiteDbContext> options) : DbCont
 
     public DbSet<QuoteDto> Quotes { get; set; }
 
-    public async Task BeginTransactionAsync()
-    {
-        var connection = Database.GetDbConnection();
-
-        if (connection.State != ConnectionState.Open)
-            await connection.OpenAsync();
-
-        var transaction = await connection.BeginTransactionAsync();
-
-        await Database.UseTransactionAsync(transaction);
-    }
+    public async Task BeginTransactionAsync() => _ = await Database.BeginTransactionAsync();            
 
     public async Task CommitTransactionAsync()
     {
@@ -38,12 +27,29 @@ public class SQLiteDbContext(DbContextOptions<SQLiteDbContext> options) : DbCont
 
     public async Task RollbackTransactionAsync()
     {
-        var transaction = Database.CurrentTransaction;
+        var transaction = Database.CurrentTransaction;        
 
         if (transaction == null)
             return;
 
         await transaction.RollbackAsync();
+    }
+
+    public bool Disposed { get; private set; }
+
+    public override void Dispose()
+    {
+        if (!Disposed)
+        {
+            Disposed = true;
+            base.Dispose();
+        }
+    }
+
+    public override async ValueTask DisposeAsync()
+    {
+        Dispose();
+        await Task.CompletedTask;
     }
 }
 
